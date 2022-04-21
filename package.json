@@ -1,0 +1,16 @@
+{
+  "name": "void",
+  "version": "1.0.0",
+  "description": "Use with caution",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Heron",
+  "license": "",
+  "dependencies": {
+    "hardhat": "^2.8.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "dotenv": "^14.3.2"
+  }
+}
