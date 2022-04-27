@@ -15,8 +15,6 @@ contract Whitelist is Ownable {
     // the token address the cash is raised in
     // assume decimals is 18
     address public investToken;
-    // the token to be launched
-    address public launchToken;
     // proceeds go to treasury
     address public treasury;
     // Void Token Contract
@@ -35,8 +33,6 @@ contract Whitelist is Ownable {
     uint256 public totalraised;
     // how much was issued
     uint256 public totalissued;
-    // how much was redeemed
-    uint256 public totalredeem;
     // start of the sale
     uint256 public startTime;
     // total duration
@@ -49,7 +45,6 @@ contract Whitelist is Ownable {
     bool public saleEnabled;
     // minimum amount
     uint256 public minInvest;
-    uint256 public launchDecimals = 18;
     // 
     uint256 public numWhitelisted = 0;
     // 
@@ -57,7 +52,6 @@ contract Whitelist is Ownable {
 
     event SaleEnabled(bool enabled, uint256 time);
     event Invest(address investor, uint256 amount);
-    event Redeem(address investor, uint256 amount);
 
     struct InvestorInfo {
         uint256 amountInvested; // Amount deposited by user
@@ -96,8 +90,6 @@ contract Whitelist is Ownable {
         endTime = startTime + duration;
 
         saleEnabled = false;
-        //require(duration < 7 days, "duration too long");
-        //nrt = new NRT("aSPHERE", 18); // WILL DELETE
     }
 
     // adds an address to the whitelist
@@ -187,14 +179,13 @@ contract Whitelist is Ownable {
 
     // -- admin functions -- //
 
-    // define the launch token to be redeemed
+    // define the investment token
     function setInvestToken(address _investToken) public onlyOwner {
         investToken = _investToken;
     }
 
     //change the datetime for when the launch happens
     function setStartTime(uint256 _startTime) public onlyOwner {
-        require(block.timestamp <= startTime, "too late, sale has started");
         require(!saleEnabled, "sale has already started");
         startTime = _startTime;
         endTime = _startTime + duration;
@@ -211,6 +202,13 @@ contract Whitelist is Ownable {
     function withdrawVoidToTreasury(uint256 amount) public onlyOwner {
         require(
             ERC20(voidToken).transfer(treasury, amount),
+            "transfer failed"
+        );
+    }
+
+    function withdrawTokenToTreasury(address token, uint256 amount) public onlyOwner {
+        require(
+            ERC20(token).transfer(treasury, amount),
             "transfer failed"
         );
     }
@@ -234,5 +232,33 @@ contract Whitelist is Ownable {
         saleEnabled = true;
         emit SaleEnabled(true, block.timestamp);
     }
+
+    // View functions // 
+
+    function isSaleOn() public view returns (bool) {
+        return saleEnabled;
+    }
+
+    function saleStartTime() public view returns (uint256) {
+        return startTime;
+    }
+
+    function isUserWhitelisted(address _user) public view returns (bool) {
+        return whitelisted[_user]; 
+    }
+
+    function investorInvested(address _user) public view returns (uint256) {
+        InvestorInfo storage investor = investorInfoMap[_user];
+        return investor.amountInvested;
+    }
+
+    function returnMumberWhitelisted() public view returns (uint256) {
+        return numWhitelisted;
+    }
+
+    function returnNumInvested() public view returns (uint256) {
+        return numInvested;
+    }
+
 
 } 
