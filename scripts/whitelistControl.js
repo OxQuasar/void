@@ -27,8 +27,10 @@ async function main() {
     //result = await WhitelistControl.currentEpoch();
     //result = await WhitelistControl.setStartTime(1651014600);
     //result = await WhitelistControl.withdrawDAIToTreasury(1000);
-    result = await WhitelistControl.withdrawVoidToTreasury(1000);
-    
+    //result = await WhitelistControl.withdrawVoidToTreasury(1000);
+    result = await WhitelistControl.treasury(); // Get the public variable
+
+
     //result = await WhitelistControl.invest(500); // Error in the invest function
     //result = await WhitelistControl.investorInvested(wallet);
 

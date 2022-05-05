@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.4;
 
 import "./ERC20.sol";
 import "./Ownable.sol";
 
-contract DummyDAI is Ownable {
+contract DummyDAI is Ownable, ERC20 {
 
     string  public name;
     string  public symbol;
@@ -33,24 +33,6 @@ contract DummyDAI is Ownable {
         balanceOf[msg.sender] = totalSupply;
     } 
 
-    function transfer(address dst, uint wad) external returns (bool) {
-        return transferFrom(msg.sender, dst, wad);
-    }
-
-    function transferFrom(address src, address dst, uint wad)
-        public returns (bool)
-    {
-        require(balanceOf[src] >= wad, "Dai/insufficient-balance");
-        if (src != msg.sender && allowance[src][msg.sender] != uint(0)) {
-            require(allowance[src][msg.sender] >= wad, "Dai/insufficient-allowance");
-            allowance[src][msg.sender] = sub(allowance[src][msg.sender], wad);
-        }
-        balanceOf[src] = sub(balanceOf[src], wad);
-        balanceOf[dst] = add(balanceOf[dst], wad);
-        emit Transfer(src, dst, wad);
-        return true;
-    }
-
     function mint(address usr, uint wad) external onlyOwner {
         balanceOf[usr] = add(balanceOf[usr], wad);
         totalSupply    = add(totalSupply, wad);
@@ -66,12 +48,6 @@ contract DummyDAI is Ownable {
         balanceOf[usr] = sub(balanceOf[usr], wad);
         totalSupply    = sub(totalSupply, wad);
         emit Transfer(usr, address(0), wad);
-    }
-
-    function approve(address usr, uint wad) external returns (bool) {
-        allowance[msg.sender][usr] = wad;
-        emit Approval(msg.sender, usr, wad);
-        return true;
     }
 
     function getTotalSupply() public view virtual returns (uint256) {
