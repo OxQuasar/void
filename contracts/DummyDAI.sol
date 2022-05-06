@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.4;
 
-import "./ERC20.sol";
-import "./Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract DummyDAI is Ownable, ERC20 {
 
     constructor (
         uint256 initSupply
-    ) ERC20("Dummy DAI", "dDAI", 18) {
+    ) ERC20("Dummy DAI", "dDAI") {
         _mint(msg.sender, initSupply);
     } 
 

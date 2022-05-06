@@ -39,6 +39,10 @@ contract DummyTreasury {
         return treasuryTokenBalance[token];
     }
 
+    /*
+    function setInvestToken(address _investToken) public onlyOwner {
+        investToken = _investToken;
+    } */
 
     // --- Math ---
     function add(uint x, uint y) internal pure returns (uint z) {

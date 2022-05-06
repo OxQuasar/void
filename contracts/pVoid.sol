@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.4;
-import "./ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract pVoid is ERC20 { 
+contract pVoid is ERC20, Ownable { 
     address public voidToken; 
 
     event Redeem(address investor, uint256 amount);
 
     constructor (
         uint256 initSupply,
-        address voidTokenAddress_,
-        address pVoidtest_
-    ) ERC20("pVoid", "pVoid", 18) {
+        address voidTokenAddress_
+    ) ERC20("pVoid", "pVoid") {
         _mint(msg.sender, initSupply);
         voidToken = voidTokenAddress_;
     } 
@@ -36,4 +36,11 @@ contract pVoid is ERC20 {
         emit Redeem(msg.sender, amount);
     }
     
+    function setVoidTokenAddress(address token) external onlyOwner {
+        voidToken = token;
+    } 
+
+    function getVoidTokenAddress() external view returns (address) {
+        return voidToken;
+    }
 }

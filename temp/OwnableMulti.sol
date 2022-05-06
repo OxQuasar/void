@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)
 
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.4;
 
 /**
  * @dev Contract module which provides a basic access control mechanism, where

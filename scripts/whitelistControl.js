@@ -1,4 +1,4 @@
-whitelistAddr = '0x6a7d57a0459C135f8b7c55aC739a4F32b5828F03';
+whitelistAddr = '0x58eF6B994904Fc596EAe0bC406D28a978aB9821D';
 
 const wallet = '0x1783Ad78f0FEFCfa7e1d964D22a7c6e46c6EB4C7'
 const wallet2 = '0xD4cf0aCafEd26e0241F05653Db06Fad377f7E56a'
@@ -15,7 +15,7 @@ async function main() {
     WhitelistControl = await Whitelist.connect(owner);
 
     
-    //result = await WhitelistControl.toggleSale();
+    //result = await WhitelistControl.toggleSaleOn();
     //result = await WhitelistControl.isSaleOn();
     //result = await WhitelistControl.saleStartTime();
     //result = await WhitelistControl.addWhitelist(wallet);
@@ -28,10 +28,10 @@ async function main() {
     //result = await WhitelistControl.setStartTime(1651014600);
     //result = await WhitelistControl.withdrawDAIToTreasury(1000);
     //result = await WhitelistControl.withdrawVoidToTreasury(1000);
-    result = await WhitelistControl.treasury(); // Get the public variable
+    //result = await WhitelistControl.treasury(); // Get the public variable
 
 
-    //result = await WhitelistControl.invest(500); // Error in the invest function
+    result = await WhitelistControl.invest(500); // Error in the invest function
     //result = await WhitelistControl.investorInvested(wallet);
 
 

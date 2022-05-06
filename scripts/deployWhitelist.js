@@ -4,7 +4,7 @@
 const hre = require("hardhat");
 require("dotenv").config();
 
-const daiTokenAddress = '0xDA1430f5F3d9E6DC3232211532026bF101Daf83F'; 
+const daiTokenAddress = '0xED47887F589A181C1817e57a6D993a45A86EE4f4'; 
 const startTime = ethers.BigNumber.from(1651097100); // Calc the start time // 15:05 today
 const saleDuration = ethers.BigNumber.from(360000); // ASK 
 const epochLength = ethers.BigNumber.from(900);; // 15 min is 900 seconds 
@@ -14,7 +14,7 @@ const maxInvestorCap = ethers.BigNumber.from(4000); // 4000 DAI investor cap
 const minInvest = ethers.BigNumber.from(50); // 50 DAI Min investment
 const presalePrice = ethers.BigNumber.from(1); // Price $1
 const treasury = '0x0b2A7d5f0D2C9c96f4E751a4922BB4a3Bc31a8FB'; // Void treasury address
-const voidTokenAddress = '0xb6D812F90E2384eE10a3477533cDA50306e5180C'; 
+const voidTokenAddress = '0xb2f8358B8D51cEBda355CB80F7c7c2223686187b'; 
 
 
 async function main() {
