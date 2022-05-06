@@ -10,14 +10,15 @@ contract pVoid is ERC20 {
 
     constructor (
         uint256 initSupply,
-        voidTokenAddress_
+        address voidTokenAddress_,
+        address pVoidtest_
     ) ERC20("pVoid", "pVoid", 18) {
         _mint(msg.sender, initSupply);
         voidToken = voidTokenAddress_;
     } 
 
-    // The function for converting pVoid to Void 
-    function convertToVoid(uint256 amount) {
+    // The function for converting pVoid to void 1:1 
+    function convertToVoid(uint256 amount) external {
         // Require the pVoid payment
         require(
             ERC20(address(this)).transferFrom(
@@ -30,9 +31,8 @@ contract pVoid is ERC20 {
         
         ERC20(voidToken).transfer(
             msg.sender,
-            issueAmount
+            amount
         );
-
         emit Redeem(msg.sender, amount);
     }
     

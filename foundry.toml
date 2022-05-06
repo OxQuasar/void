@@ -1,0 +1,10 @@
+[default]
+src = 'contracts'
+out = 'artifacts'
+libs = ['node_modules']
+
+remappings = ['ds-test/=node_modules/forge-std/lib/ds-test/src/']
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/config
+
+
