@@ -17,8 +17,8 @@ async function main() {
 
   const contract = await smartContract.deploy(
     ethers.BigNumber.from('1000000000000000000'), // 1e18
-    '0xED47887F589A181C1817e57a6D993a45A86EE4f4',
-    '0x3449f3b1cF796226241A63ABcC74D339961d553e'
+    '0x5e5873FadBFda8F98d7721F80A73F99b868b7388'
+    //'0x3449f3b1cF796226241A63ABcC74D339961d553e'
   );
   await contract.deployed();
   console.log(`${contractName} deployed to: ${contract.address}`); 

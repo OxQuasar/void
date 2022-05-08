@@ -88,8 +88,12 @@ contract WhitelistTest is Test {
         require(ddai.balanceOf(testWallet) == 100_000);
         require(pvoid.balanceOf(address(wlist)) == 200_000);
 
+
         // Test the invest function 
         vm.startPrank(testWallet);
+        // Approve the spend limit
+        ddai.approve(address(wlist), type(uint256).max);
+
         uint256 investAmt = 60;
         wlist.invest(investAmt);
         require(wlist.investorInvested(testWallet) == investAmt);
@@ -98,7 +102,11 @@ contract WhitelistTest is Test {
         require(wlist.investorInvested(testWallet) == 500);
         vm.stopPrank();
 
+
         vm.startPrank(testWallet2);
+        // Approve the spend limit
+        ddai.approve(address(wlist), type(uint256).max);
+
         wlist.invest(500);
         require(wlist.investorInvested(testWallet2) == 500);
 
@@ -136,7 +144,7 @@ contract WhitelistTest is Test {
     function test_dummyTokens() public {
 
         // Init Dummy DAI and give the wallet 1 ether
-        uint256 dDAIAmount = 1;
+        uint256 dDAIAmount = 1000;
         ddai.transfer(testWallet, dDAIAmount);
         require(ddai.balanceOf(testWallet) == dDAIAmount);
 
@@ -149,19 +157,21 @@ contract WhitelistTest is Test {
 
         // Transfer the dummyDAI to the pvoid contract 
         ddai.transfer(address(pvoid), dDAIAmount);
-        require(ddai.balanceOf(address(pvoid)) == 1);
+        require(ddai.balanceOf(address(pvoid)) == 1000);
         require(pvoid.getVoidTokenAddress() == address(ddai));
         vm.stopPrank();
 
 
         // Init pVoid, and sub DummyDAI as the void token
-        pvoid.transfer(testWallet, 1);
-        require(pvoid.balanceOf(testWallet) == 1);
+        pvoid.transfer(testWallet, 1000);
+        require(pvoid.balanceOf(testWallet) == 1000);
 
 
         // Test the pVoid redeem function 
-        //vm.prank(testWallet);
-        //pvoid.convertToVoid(10);
+        vm.startPrank(testWallet);
+        // Approval
+        pvoid.approve(address(pvoid), type(uint256).max);
+        pvoid.convertToVoid(1000);
     }
 
 }

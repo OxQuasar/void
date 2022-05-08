@@ -36,6 +36,7 @@ contract pVoid is ERC20, Ownable {
         emit Redeem(msg.sender, amount);
     }
     
+    // Admin functions
     function setVoidTokenAddress(address token) external onlyOwner {
         voidToken = token;
     } 
